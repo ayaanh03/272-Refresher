@@ -3,6 +3,10 @@ class Child < ApplicationRecord
     has_many :tasks, through: :chores
     validates_presence_of :first_name,:last_name
 
+    def points_earned
+        self.chores.done.inject(0){|sum,chore| sum += chore.task.points}
+    end 
+
     def name
         first_name+" "+last_name
     end
